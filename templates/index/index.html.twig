@@ -8,39 +8,40 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-{#<div class="example-wrapper">#}
-    <h1>Petitions! ✅</h1>
+    {% for flashMessage in app.session.flashbag.get('error') %}
 
-    {{ form(form) }}
-    <form name="petitionFields">
-    <table>
-        <tr>
-            <th>PetitionID<input type="checkbox" value="petitionID" name="fields"></th>
-            <th>Title<input type="checkbox" value="title" name="fields"></th>
-            <th>Link<input type="checkbox" value="link" name="fields"></th>
-            <th>Description</th>
-            <th>Signature</th>
-            <th>Summary</th>
-            <th>Stopdate</th>
-        </tr>
-        <input type="submit">
-    {% for petition in petitions %}
-        <tr>
-            <td>{{ petition.petitionID }}</td>
-            <td>{{ petition.title }}</td>
-            <td>{{ petition.link }}</td>
-            <td>{{ petition.description }}</td>
-            <td>{{ petition.signature_count }}</td>
-            <td>{{ petition.summary | raw}}</td>
-            <td>{{ petition.stopdate }}</td>
-        </tr>
+        <h2>{{ flashMessage }}</h2>
+
     {% endfor %}
+
+    {{ form_start(form) }}
+
+    <h1>Petitions! ✅</h1>
+    {{ form_row(form.submit) }}
+    <br>
+    <table class="table">
+        <div class="row bg-dark">
+            <div class="col-1 text-white" style="margin: 7px 0;">PetitionID {{ form_widget(form.petitionID) }}</div>
+            <div class="col-2 text-white" style="margin: 7px 0;">Title {{ form_widget(form.title) }}</div>
+            <div class="col-2 text-white " style="margin: 7px 0;">Link {{ form_widget(form.link) }}</div>
+            <div class="col-2 text-white " style="margin: 7px 0;">Description {{ form_widget(form.description) }}</div>
+            <div class="col-1 text-white " style="margin: 7px 0;">Signature {{ form_widget(form.signature_count) }}</div>
+            <div class="col-3 text-white " style="margin: 7px 0;">Summary {{ form_widget(form.summary) }}</div>
+            <div class="col-1 text-white " style="margin: 7px 0;">Stopdate</div>
+        </div>
     </table>
-    </form>
-{#    This friendly message is coming from:#}
-{#    <ul>#}
-{#        <li>Your controller at <code><a href="{{ '/Users/user/Projects/insart/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>#}
-{#        <li>Your template at <code><a href="{{ '/Users/user/Projects/insart/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>#}
-{#    </ul>#}
-{#</div>#}
+    {{ form_end(form) }}
+    {% for petition in petitions %}
+        <div class="row">
+            <div class="col-1">{{ petition.petitionID }}</div>
+            <div class="col-2">{{ petition.title }}</div>
+            <div class="col-2 text-break">{{ petition.link }}</div>
+            <div class="col-2">{{ petition.description }}</div>
+            <div class="col-1">{{ petition.signature_count }}</div>
+            <div class="col-3">{{ petition.summary | raw}}</div>
+            <div class="col-1">{{ petition.stopdate }}</div>
+        </div>
+        <hr size="2px">
+    {% endfor %}
+
 {% endblock %}

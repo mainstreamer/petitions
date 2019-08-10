@@ -19,7 +19,7 @@ class PetitionFieldsType extends AbstractType
             ->add('signature_count', CheckboxType::class, ['required' => false])
             ->add('summary', CheckboxType::class, ['required' => false])
             ->add('description', CheckboxType::class, ['required' => false])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' => 'DOWNLOAD CSV'])
         ;
     }
 
