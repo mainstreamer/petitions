@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+
+        <h2>{{ flashMessage }}</h2>
+
+    {% endfor %}
+
+    {{ form_start(form) }}
+
+    <h1>Petitions! ✅</h1>
+    {{ form_row(form.submit) }}
+    <br>
+    <table class="table">
+        <div class="row bg-dark">
+            <div class="col-1 text-white" style="margin: 7px 0;">PetitionID {{ form_widget(form.petitionID) }}</div>
+            <div class="col-2 text-white" style="margin: 7px 0;">Title {{ form_widget(form.title) }}</div>
+            <div class="col-2 text-white " style="margin: 7px 0;">Link {{ form_widget(form.link) }}</div>
+            <div class="col-2 text-white " style="margin: 7px 0;">Description {{ form_widget(form.description) }}</div>
+            <div class="col-1 text-white " style="margin: 7px 0;">Signature {{ form_widget(form.signature_count) }}</div>
+            <div class="col-3 text-white " style="margin: 7px 0;">Summary {{ form_widget(form.summary) }}</div>
+            <div class="col-1 text-white " style="margin: 7px 0;">Stopdate</div>
+        </div>
+    </table>
+    {{ form_end(form) }}
+    {% for petition in petitions %}
+        <div class="row">
+            <div class="col-1">{{ petition.petitionID }}</div>
+            <div class="col-2">{{ petition.title }}</div>
+            <div class="col-2 text-break">{{ petition.link }}</div>
+            <div class="col-2">{{ petition.description }}</div>
+            <div class="col-1">{{ petition.signature_count }}</div>
+            <div class="col-3">{{ petition.summary | raw}}</div>
+            <div class="col-1">{{ petition.stopdate }}</div>
+        </div>
+        <hr size="2px">
+    {% endfor %}
+
+{% endblock %}
